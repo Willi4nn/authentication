@@ -1,6 +1,6 @@
-import { Schema, model, Document } from "mongoose";
 import Joi from "joi";
 import jwt, { Secret } from "jsonwebtoken";
+import { Document, Schema, model } from "mongoose";
 
 interface User extends Document {
   username: string;

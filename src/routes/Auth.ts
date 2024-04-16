@@ -1,10 +1,10 @@
-import { Router } from "express";
 import bcrypt from 'bcryptjs';
-import { User, Validate } from "../models/user";
-import { Token } from "../models/token";
 import crypto from 'crypto';
-import sendEmail from "../utils/sendEmail";
+import { Router } from "express";
 import Joi from "joi";
+import { Token } from "../models/token";
+import { User } from "../models/user";
+import sendEmail from "../utils/sendEmail";
 export const authRouter = Router();
 
 authRouter.post("/login", async (req, res) => {

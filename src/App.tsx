@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import EmailVerify from './components/Auth/emailVerify';
-import Register from './components/Auth/register';
 import Login from './components/Auth/login';
-import ProtectedPage from './pages/protectedPage';
-import ProtectedRoute from './contexts/protectedRoute';
+import Register from './components/Auth/register';
 import AuthProvider from './contexts/authProvider';
-import './index.css'
+import ProtectedRoute from './contexts/protectedRoute';
+import './index.css';
+import ProtectedPage from './pages/protectedPage';
 
 export default function App() {
 

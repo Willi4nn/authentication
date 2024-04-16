@@ -1,10 +1,10 @@
+import { zodResolver } from '@hookform/resolvers/zod';
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import api from '../../server/api';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { z } from 'zod';
+import api from '../../server/api';
 
 const userFormSchema = z.object({
   username: z.string().min(1, { message: 'Nome de usuário é obrigatório' }),

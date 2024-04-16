@@ -1,9 +1,9 @@
-import express from "express";
-import { config } from 'dotenv';
 import cors from 'cors';
-import connectToMongoDB from "./db";
+import { config } from 'dotenv';
+import express from "express";
 import authRouter from '../routes/auth';
 import userRouter from '../routes/users';
+import connectToMongoDB from "./db";
 
 const app = express();
 

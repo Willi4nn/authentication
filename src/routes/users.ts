@@ -1,9 +1,9 @@
 import bcrypt from 'bcryptjs';
-import { User, Validate } from "../models/user";
-import { Token } from "../models/token";
 import crypto from 'crypto';
-import sendEmail from "../utils/sendEmail";
 import { Router } from 'express';
+import { Token } from "../models/token";
+import { User, Validate } from "../models/user";
+import sendEmail from "../utils/sendEmail";
 
 const userRouter = Router();
 
@@ -29,6 +29,7 @@ userRouter.post("/", async (req, res) => {
       userId: user._id,
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
+    console.log(token);
 
     const url = `${process.env.BASE_URL}/users/${user._id}/verify/${token.token}`;
     console.log(url);
@@ -44,18 +45,23 @@ userRouter.post("/", async (req, res) => {
 
 userRouter.get("/:id/verify/:token", async (req, res) => {
   try {
-    const user = await User.findOne({ _id: req.params.id });
+    const { id, token } = req.params;
+
+    const user = await User.findById(id);
     if (!user) return res.status(400).send({ message: "Usuário inválido" });
+    if (user.verified) {
+      return res.status(400).send({ message: "E-mail já verificado" });
+    }
 
-    const token = await Token.findOne({
+    const userToken = await Token.findOne({
       userId: user._id,
-      token: req.params.token,
+      token: token,
     });
-
-    if (!token) return res.status(400).send({ message: "Token inválido" });
+    if (!userToken) return res.status(400).send({ message: "Token inválido" });
 
     await User.updateOne({ _id: user._id }, { verified: true });
-    await token.deleteOne();
+
+    await userToken.deleteOne();
 
     res.status(200).send({ message: "E-mail verificado com sucesso" });
   } catch (error) {
