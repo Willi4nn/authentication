@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
+import failImg from "../../images/fail-verify.png";
+import successImg from "../../images/success-verify.png";
 import api from "../../server/api";
 
 export default function EmailVerify() {
@@ -24,21 +26,23 @@ export default function EmailVerify() {
   }, [id, token]);
 
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-950">
+    <div className="flex min-h-screen justify-center items-center bg-gray-950">
       {validUrl ? (
-        <div className="text-center">
+        <div className='flex flex-col items-center bg-slate-900 rounded-lg p-8 max-w-md w-full'>
+          <img src={successImg} alt="Email Verified" className="w-28 h-28 mb-4" />
           <h1 className="text-xl font-bold text-green-500">{message}</h1>
           <Link to="/login">
-            <button className="py-2 px-4 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button className="flex mt-6 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Login
             </button>
           </Link>
         </div>
       ) : (
-        <div className="text-center">
+        <div className='flex flex-col items-center bg-slate-900 rounded-lg p-8 max-w-md w-full'>
+          <img src={failImg} alt="Email Verified" className="w-28 h-28 mb-4" />
           <h1 className="text-xl font-bold text-red-500">{message}</h1>
           <Link to="/login">
-            <button className="py-2 px-4 bg-blue-500 text-white font-bold rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button className="flex mt-6 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
               Login
             </button>
           </Link>

@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import { toast } from "react-toastify";
 import api from "../server/api";
 
 interface AuthContextProps {
@@ -42,6 +43,9 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
       localStorage.setItem('token', token);
       api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
       setIsSigned(true);
+      toast.success(response.data.message, {
+        theme: "dark",
+      });
       navigate('/protected-page');
     } catch (error) {
       console.error('Login Error:', error);

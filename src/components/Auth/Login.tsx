@@ -30,7 +30,9 @@ export default function Login() {
 
   const handleApiError = (error: any) => {
     console.error('Error:', error);
-    toast.error(error.response?.data?.message || "Ocorreu um erro.");
+    toast.error(error.response?.data?.message || "Ocorreu um erro.", {
+      theme: "dark"
+    });
   };
 
   return (
@@ -53,7 +55,10 @@ export default function Login() {
               {errors.email && <span className="text-sm text-red-500 mt-1">{errors.email.message}</span>}
             </div>
             <div>
-              <label className="block text-sm font-medium leading-6 text-gray-200">Senha:</label>
+              <div className="flex justify-between items-center"> {/* Flex container for password label and forgot password link */}
+                <label className="block text-sm font-medium leading-6 text-gray-200">Senha:</label>
+                <a href="/forgot-password" className="text-sm font-medium leading-6 text-gray-200 forgot-password-link hover:text-blue-500">Esqueceu sua senha?</a>
+              </div>
               <input
                 id="password"
                 type="password"
@@ -64,12 +69,12 @@ export default function Login() {
             </div>
             <div>
               <button type="submit"
-                className="flex mt-6 w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                className="flex mt-6 w-full justify-center rounded-md bg-indigo-600  px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
                 Logar
               </button>
             </div>
             <span className="block text-sm font-medium leading-6 text-gray-200">
-              Não possui uma conta? <a href="/" className="text-blue-500">Criar Nova Conta</a>
+              Não possui uma conta? <a href="/" className="text-blue-500 hover:text-white">Criar Nova Conta</a>
             </span>
           </form>
           <ToastContainer />

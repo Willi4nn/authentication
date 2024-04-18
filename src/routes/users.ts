@@ -29,14 +29,12 @@ userRouter.post("/", async (req, res) => {
       userId: user._id,
       token: crypto.randomBytes(32).toString("hex"),
     }).save();
-    console.log(token);
 
     const url = `${process.env.BASE_URL}/users/${user._id}/verify/${token.token}`;
     console.log(url);
     await sendEmail(user.email, "Verificar Email", url);
 
     res.status(201).json({ id: user._id, message: "Um e-mail foi enviado para sua conta, por favor verifique" });
-
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Erro interno do servidor" });
@@ -55,9 +53,11 @@ userRouter.get("/:id/verify/:token", async (req, res) => {
 
     const userToken = await Token.findOne({
       userId: user._id,
-      token: token,
+      token: token
     });
-    if (!userToken) return res.status(400).send({ message: "Token inválido" });
+    if (!userToken) {
+      return res.status(400).send({ message: "Token Inválido" });
+    }
 
     await User.updateOne({ _id: user._id }, { verified: true });
 

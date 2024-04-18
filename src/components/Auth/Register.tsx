@@ -27,7 +27,9 @@ export default function Register() {
   const onSubmit = async (data: Schema) => {
     try {
       const response = await api.post('/api/users', { username: data.username, email: data.email, password: data.password });
-      toast.success(response.data.message);
+      toast.success(response.data.message, {
+        theme: "dark"
+      });
     } catch (error) {
       handleApiError(error);
     }
@@ -35,7 +37,9 @@ export default function Register() {
 
   const handleApiError = (error: any) => {
     console.error('Error:', error);
-    toast.error(error.response?.data?.message || 'Ocorreu um erro.');
+    toast.error(error.response?.data?.message || 'Ocorreu um erro.', {
+      theme: "dark"
+    });
   };
 
   return (
@@ -81,7 +85,7 @@ export default function Register() {
               </button>
             </div>
             <span className="block text-sm font-medium leading-6 text-gray-200">
-              Já possui login? <a href="/login" className="text-blue-500">Entrar</a>
+              Já possui login? <a href="/login" className="text-blue-500 hover:text-white">Entrar</a>
             </span>
           </form>
           <ToastContainer />
